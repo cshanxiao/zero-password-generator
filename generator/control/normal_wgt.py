@@ -1,17 +1,19 @@
 # -*- coding: utf8 -*-
-u'''
+u"""
 @summary:
-@author: Administrator
+@author: Zero
 @date: 2016年2月18日
-'''
+"""
 
-from PyQt4 import QtGui
+from PyQt6.QtWidgets import QDialog
+
 from generator.core.password_generator import PasswordGenerator
-from generator.view.normal_wgt_ui import Ui_Normalwgt
+from generator.view.normal_wgt import Ui_Normalwgt
 
-class Normalwgt(QtGui.QDialog, Ui_Normalwgt):
+
+class NormalWidget(QDialog, Ui_Normalwgt):
     def __init__(self, parent=None):
-        QtGui.QDialog.__init__(self, parent)
+        QDialog.__init__(self, parent)
         Ui_Normalwgt.__init__(self)
         self.setupUi(self)
 
@@ -29,13 +31,10 @@ class Normalwgt(QtGui.QDialog, Ui_Normalwgt):
         length = self.sb_length.value()
         count = self.sb_count.value()
 
-        genaretor = PasswordGenerator()
-        pwds = genaretor.generate_normal_password(digits, lowercase, uppercase,
-                                                  punctuation, length, count)
+        generator = PasswordGenerator()
+        pwds = generator.generate_normal_password(
+            digits, lowercase, uppercase, punctuation, length, count)
 
         self.text_pwd.clear()
         for pwd in pwds:
             self.text_pwd.appendPlainText(pwd)
-
-
-

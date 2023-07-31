@@ -1,20 +1,21 @@
 # -*- coding: utf8 -*-
 u'''
 @summary:
-@author: Administrator
+@author: Zero
 @date: 2016年2月17日
 '''
 
-import string
 import random
+import string
 
-class PasswordGenerator():
+
+class PasswordGenerator:
     def __init__(self):
         pass
 
     def _generate(self, random_chars, length):
         pwd = ""
-        for _i in xrange(length):
+        for _i in range(length):
             pwd += random.choice(random_chars)
         return pwd
 
@@ -24,22 +25,22 @@ class PasswordGenerator():
         if digits:
             random_chars.update([char for char in string.digits])
         if lowercase:
-            random_chars.update([char for char in string.lowercase])
+            random_chars.update([char for char in string.ascii_lowercase])
         if uppercase:
-            random_chars.update([char for char in string.uppercase])
+            random_chars.update([char for char in string.ascii_uppercase])
         if punctuation:
             random_chars.update([char for char in string.punctuation])
         if not random_chars:
             random_chars.update([char for char in string.digits])
 
-        return [self._generate(list(random_chars), length) for _i in xrange(count)]
+        return [self._generate(list(random_chars), length) for _i in range(count)]
 
     def generate_custom_password(self, custom_chars=None, custom_random_chars=None,
                                  length=8, count=1):
         if not custom_random_chars or not isinstance(custom_random_chars, list):
             custom_random_chars = [char for char in string.digits]
         pwds = []
-        for _i in xrange(count):
+        for _i in range(count):
             pwd = self._generate(custom_random_chars, length)
             if custom_chars and isinstance(custom_chars, dict):
                 pwd = list(pwd)
@@ -50,4 +51,3 @@ class PasswordGenerator():
                 pwd = "".join(pwd)
             pwds.append(pwd)
         return pwds
-

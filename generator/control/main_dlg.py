@@ -1,17 +1,22 @@
-#-*- coding: utf-8 -*-
-'''
+# -*- coding: utf-8 -*-
+"""
 Created on 2014-1-2
 
-@author: Administrator
-'''
-from PyQt4 import QtCore, QtGui
-from generator.common.global_cnf import FRAME_WIDTH, FRAME_HEIGHT
-from generator.view.main_dlg_ui import Ui_Maindlg
-from generator.control.normal_wgt import Normalwgt
+@author: Zero
+"""
+from pathlib import Path
 
-class Maindlg(QtGui.QDialog, Ui_Maindlg):
+from PyQt6 import QtCore, QtGui
+from PyQt6.QtWidgets import QDialog, QTabWidget
+
+from generator.control.normal_wgt import NormalWidget
+from generator.view.main_dlg import Ui_Maindlg
+from settings import RESOURCE_PATH, FRAME_WIDTH, FRAME_HEIGHT
+
+
+class MainDialog(QDialog, Ui_Maindlg):
     def __init__(self, parent=None):
-        QtGui.QDialog.__init__(self, parent)
+        QDialog.__init__(self, parent)
         Ui_Maindlg.__init__(self)
         self.setupUi(self)
         self.create_ui()
@@ -19,27 +24,21 @@ class Maindlg(QtGui.QDialog, Ui_Maindlg):
     def create_ui(self):
         self.resize(FRAME_WIDTH, FRAME_HEIGHT)
         self.setMaximumSize(QtCore.QSize(FRAME_WIDTH, FRAME_HEIGHT))
-        self.setWindowFlags(QtCore.Qt.Window)
-        self.setWindowIcon(QtGui.QIcon("./skin/tray.png"))
+        self.setWindowFlags(QtCore.Qt.WindowType.Window)
+        self.setWindowIcon(QtGui.QIcon(Path(RESOURCE_PATH).joinpath("tray.png").as_posix()))
 
-        self.tabWidget = QtGui.QTabWidget(self)
+        self.tabWidget = QTabWidget(self)
         self.tabWidget.setGeometry(QtCore.QRect(0, 0, FRAME_WIDTH, FRAME_HEIGHT))
-        self.tabWidget.setTabPosition(QtGui.QTabWidget.North)
+        self.tabWidget.setTabPosition(QTabWidget.TabPosition.North)
         self.tabWidget.setIconSize(QtCore.QSize(32, 32))
         self.show_tabs()
         self.tabWidget.setCurrentIndex(0)
 
     def show_tabs(self):
-        u'''
+        """
         @summary:
-        '''
-        tab_normal = Normalwgt(self)
+        """
+        tab_normal = NormalWidget(self)
         tab_normal.setObjectName("tab_normal")
-        icon = QtGui.QIcon("./skin/ssh.png")
+        icon = QtGui.QIcon(Path(RESOURCE_PATH).joinpath("ssh.png").as_posix())
         self.tabWidget.addTab(tab_normal, icon, u"普通密码生成")
-
-
-
-
-
-

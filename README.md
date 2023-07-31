@@ -1,2 +1,9 @@
-# Passwordgenerator
-Passwordgenerator
+# 密码生成器
+
+密码生成工具，基于 Python 和 PyQt6 开发的 Gui 桌面软件，遵循 MVC 设计模式，
+供基于 Python 开发桌面应用的研发人员入门参考
+
+## 已在以下环境测试通过
+
+3.8 <= Python < 3.9
+PyQt6==6.5.2
